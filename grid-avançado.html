@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="name" author="rodrigo p.a">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, 
+	minimum-scale=1.0">
+	<title>Grid avançado</title>
+</head>
+<style>
+
+	/* reset css */
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html, body{
+	height: 100%;
+	font-size: 100%; /* size original */
+}
+
+input,
+button,
+a {	outline: none; }
+
+ol, ul { list-style-type: none; }
+
+/* -----------------*/
+
+/* pseudo-classes */
+
+:root{
+	--vermelho-color: #f00;
+	--azul-color: #00e;
+	--amarelo-color: #ffff00;
+	--verde-color: #0a0;
+	--branco-color: #fff;
+	--preto-color: #000;
+	}   
+
+
+.container{
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.6rem; /* 1rem - 1 fração de 100% do size original */ 
+  display: grid;
+  grid-template: 
+  		"h h" 20vh /* linhas */
+  		"m a" 70vh /* linhas */
+  		"f f" 10vh /* linhas */
+  		/ 1fr 1fr; /* colunas */ /* 1fr - frações iguais */		 	
+
+}
+
+header{
+  background-color: var(--vermelho-color);
+  grid-area: h; 
+}
+
+main{
+  background-color: var(--azul-color);
+  grid-area: m;
+}
+
+aside{
+  background-color: var(--amarelo-color);
+  grid-area: a;
+}
+
+footer{
+  background-color: var(--verde-color);
+  grid-area: f;
+}
+
+.sub-grid{   /* sub-grid classe pai com */ 
+	display: grid;
+	grid-gap: 10px;
+	grid-template-columns: repeat(auto-fit, 120px); /* colunas responsivas dentro da classe pai */
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.box{ 
+	color: var(--preto-color);
+	background: var(--vermelho-color); 
+}
+
+.box2, .box3, .box4, .box5, .box6 { color: var(--branco-color); } 
+
+.sub-grid .box2 { 
+	grid-column: 2; /* depende do numero de colunas */
+	grid-row: 3; /* depende do numero de linhas */
+}
+
+.sub-grid .box3 { 
+	grid-column: 1 / 3; /* comece no 1 (coluna 1) e expanda e termine no 3 (coluna 3)*/
+}
+
+.sub-grid .box4 {  
+	grid-column: 1 / span 2; /* comece no 1 (coluna 1) e some +1 (coluna 1) e termine no 3 (coluna) */
+}
+
+.sub-grid .box5 {
+	grid-row: 2;  /* vai para segunda linha da primeira coluna */
+}
+
+.sub-grid .box6 {
+	grid-row: 2 / 4;  /* vai para segunda linha da primeira coluna até a terceira */
+}
+
+
+
+@media (max-width: 600px){
+  .container{
+    grid-template:	    
+    	"h h" 20vh /* linhas */
+        "m m" 35vh /* linhas */
+        "a a" 35vh /* linhas */
+        "f f" 10vh /* linhas */
+        / 1fr; /* colunas */
+  }
+
+  .sub-grid .box2 { 
+  	grid-column: 1; 
+	grid-row: 2; 
+	}
+	
+	.sub-grid .box4,
+	.sub-grid .box3 { 
+		grid-column: auto; 
+	}
+
+	.sub-grid .box5,
+	.sub-grid .box6 { 
+		grid-row: auto;
+	}	
+
+</style>
+<body>
+
+	<!-- para mais estudos grid layout: https://www.origamid.com/projetos/css-grid-layout-guia-completo/-->
+	<!-- para mais estudos flex box: https://developer.mozilla.org/pt-BR/docs/Web/CSS/CSS_Flexible_Box_Layout/Conceitos_Basicos_do_Flexbox-->
+    <div class="container">
+	  <header>Header - Logo e Menu</header>
+	  	<main>Main - Contéudo principal
+	  		<div class="sub-grid">
+				<div class="box box2">box 2</div>
+				<div class="box box5">box 5</div>
+				<div class="box">conteúdo</div>
+				<div class="box">conteúdo</div>
+				<div class="box">conteúdo</div>
+				<div class="box box3">box 3</div>
+			</div>	
+	  	</main>
+	  <aside>Aside Conteúdo secundário
+		<div class="sub-grid">
+				<div class="box box4">box 4</div>
+				<div class="box">conteúdo</div>
+				<div class="box">conteúdo</div>
+				<div class="box">conteúdo</div>
+				<div class="box box6">box6</div>
+			</div>	
+	  </aside>
+	  <footer>Footer - rodapé</footer>
+  </div>
+
+
+</body>
+</html>
